@@ -1,10 +1,10 @@
 import './App.css';
-import EnterIncredient from './components/CreateRecipe/EnterIncredient'
+import AddRecipe from './components/AddRecipe/AddRecipe';
 
 function App() {
   return (
     <div className="App">
-     <EnterIncredient />
+     <AddRecipe />
     </div>
   );
 }

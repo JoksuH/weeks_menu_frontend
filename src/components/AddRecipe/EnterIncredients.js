@@ -1,0 +1,56 @@
+import { useState } from 'react'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import Incredient from './Incredient'
+
+const useStyles = makeStyles((theme) => ({
+  grid: {
+    width: '100%',
+    margin: 'auto',
+  },
+  item: {
+    paddingTop: '3vh',
+  },
+  button: {
+    marginTop: '3vh',
+  },
+  formcontrol: {
+    width: '100%',
+  },
+}))
+
+function EnterIncredients() {
+  const [AmountofIncredients, SetAmountofIncredients] = useState(2)
+  const [IncredientList, SetIncredientList] = useState([0, 1])
+
+  const classes = useStyles()
+
+  const handleChange = (event) => {
+    SetAmountofIncredients(event.target.value)
+  }
+
+  const handleButtonClick = () => {
+    const incListCopy = [...IncredientList]
+    incListCopy.push(AmountofIncredients)
+    SetIncredientList(incListCopy)
+    SetAmountofIncredients(AmountofIncredients + 1)
+  }
+
+  return (
+    <Grid container className={classes.grid} direction="column" alignContent="center">
+      {IncredientList.map(() => {
+        return (
+          <Grid item className={classes.item}>
+            <Incredient />
+          </Grid>
+        )
+      })}
+      <Button variant="contained" onClick={handleButtonClick} className={classes.button}>
+        Add New Incredient
+      </Button>
+    </Grid>
+  )
+}
+
+export default EnterIncredients

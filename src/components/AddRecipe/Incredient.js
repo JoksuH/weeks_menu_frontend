@@ -8,8 +8,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
-  grid: {
-    width: '40%',
+  textfield_amount: {
+    width: '10vw',
+    margin: 'auto',
+  },
+  textfield_item: {
+    width: '30vw',
     margin: 'auto',
   },
   formcontrol: {
@@ -17,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function EnterIncredient() {
+function Incredient() {
   const [unit, Setunit] = useState('')
   const classes = useStyles()
 
@@ -30,7 +34,7 @@ function EnterIncredient() {
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Amount</InputLabel>
 
-        <TextField></TextField>
+        <TextField className={classes.textfield_amount} fullWidth={true}></TextField>
       </Grid>
       <Grid item>
         <FormControl className={classes.formcontrol}>
@@ -46,10 +50,10 @@ function EnterIncredient() {
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Item</InputLabel>
 
-        <TextField></TextField>
+        <TextField className={classes.textfield_item}></TextField>
       </Grid>
     </Grid>
   )
 }
 
-export default EnterIncredient
+export default Incredient
