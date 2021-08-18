@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
   grid: {
-    width: '40%',
+    width: '80%',
     margin: 'auto',
   },
   formcontrol: {
@@ -14,37 +14,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function BasicInfoBox() {
-  const [Title, SetTitle] = useState('')
-  const [Description, SetDescription] = useState('')
-  const [ImageURL, SetImageURL] = useState('')
+function BasicInfoBox({handleTitleChange, handleDescriptionChange, handleImageURLChange}) {
 
   const classes = useStyles()
 
-  const handleTitleChange = (event) => {
-    SetTitle(event.target.value)
-  }
-  const handleDescriptionChange = (event) => {
-    SetDescription(event.target.value)
-  }
-  const handleImageURLChange = (event) => {
-    SetImageURL(event.target.value)
-  }
 
   return (
     <Grid container className={classes.grid} direction="column" alignContent="center" spacing={3}>
       <Grid item>
-        <InputLabel id="unit-selection-inputlabel">Title</InputLabel>
+        <InputLabel id="title-inputlabel">Title</InputLabel>
 
         <TextField onChange={handleTitleChange}></TextField>
       </Grid>
       <Grid item>
-        <InputLabel id="unit-selection-inputlabel">Description</InputLabel>
+        <InputLabel id="description-inputlabel">Description</InputLabel>
 
         <TextField multiline rows={4} variant="outlined" onChange={handleDescriptionChange}></TextField>
       </Grid>
       <Grid item>
-        <InputLabel id="unit-selection-inputlabel">Image URL</InputLabel>
+        <InputLabel id="image-url-inputlabel">Image URL</InputLabel>
 
         <TextField onChange={handleImageURLChange}></TextField>
       </Grid>

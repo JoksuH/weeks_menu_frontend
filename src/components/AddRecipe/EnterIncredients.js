@@ -20,15 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function EnterIncredients() {
+function EnterIncredients({handleIncredientChange}) {
   const [AmountofIncredients, SetAmountofIncredients] = useState(2)
   const [IncredientList, SetIncredientList] = useState([0, 1])
 
   const classes = useStyles()
-
-  const handleChange = (event) => {
-    SetAmountofIncredients(event.target.value)
-  }
 
   const handleButtonClick = () => {
     const incListCopy = [...IncredientList]
@@ -39,10 +35,10 @@ function EnterIncredients() {
 
   return (
     <Grid container className={classes.grid} direction="column" alignContent="center">
-      {IncredientList.map(() => {
+      {IncredientList.map((val, index) => {
         return (
           <Grid item className={classes.item}>
-            <Incredient />
+            <Incredient number={index} onChange={handleIncredientChange}/>
           </Grid>
         )
       })}

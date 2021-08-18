@@ -21,12 +21,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Incredient() {
-  const [unit, Setunit] = useState('')
+function Incredient({ number, onChange }) {
   const classes = useStyles()
 
-  const handleChange = (event) => {
-    Setunit(event.target.value)
+  const [units, Setunits] = useState(' ')
+
+  const onUnitChange = (event) => {
+    Setunits(event.target.value)
+    onChange(event)
   }
 
   return (
@@ -34,12 +36,13 @@ function Incredient() {
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Amount</InputLabel>
 
-        <TextField className={classes.textfield_amount} fullWidth={true}></TextField>
+        <TextField className={classes.textfield_amount} fullWidth={true} onChange={onChange} name={'amount ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
       </Grid>
       <Grid item>
         <FormControl className={classes.formcontrol}>
           <InputLabel id="unit-selection-inputlabel">Unit</InputLabel>
-          <Select id="unit-selection" value={unit} onChange={handleChange}>
+          <Select id="unit-selection" value={units} onChange={onUnitChange} name={'units ' + number}>
+            <MenuItem value={' '}> </MenuItem>
             <MenuItem value={'g'}>g</MenuItem>
             <MenuItem value={'dl'}>dl</MenuItem>
             <MenuItem value={'ts'}>ts</MenuItem>
@@ -50,7 +53,7 @@ function Incredient() {
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Item</InputLabel>
 
-        <TextField className={classes.textfield_item}></TextField>
+        <TextField className={classes.textfield_item} onChange={onChange} name={'item ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
       </Grid>
     </Grid>
   )
