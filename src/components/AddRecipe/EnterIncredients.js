@@ -2,12 +2,14 @@ import { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Incredient from './Incredient'
 
 const useStyles = makeStyles((theme) => ({
   grid: {
     width: '100%',
     margin: 'auto',
+    marginTop: '5vh'
   },
   item: {
     paddingTop: '3vh',
@@ -37,12 +39,12 @@ function EnterIncredients({handleIncredientChange}) {
     <Grid container className={classes.grid} direction="column" alignContent="center">
       {IncredientList.map((val, index) => {
         return (
-          <Grid item className={classes.item}>
+          <Grid item className={classes.item} key={index}>
             <Incredient number={index} onChange={handleIncredientChange}/>
           </Grid>
         )
       })}
-      <Button variant="contained" onClick={handleButtonClick} className={classes.button}>
+      <Button variant="contained" onClick={handleButtonClick} className={classes.button} startIcon={<AddCircleOutlineIcon />}>
         Add New Incredient
       </Button>
     </Grid>
