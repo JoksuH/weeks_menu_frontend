@@ -23,7 +23,7 @@ function Instructions({handleInstructionsChange}) {
       <Grid item>
         <InputLabel id="instructions-inputlabel">Instructions</InputLabel>
 
-        <TextField multiline rows={4} variant="outlined" onChange={handleInstructionsChange} inputProps={{ style: { textAlign: 'center', width:'40vw' } }}></TextField>
+        <TextField multiline rows={4} variant="outlined" onInput={handleInstructionsChange} inputProps={{ style: { textAlign: 'center', width:'40vw' } }}></TextField>
       </Grid>
     </Grid>
   )

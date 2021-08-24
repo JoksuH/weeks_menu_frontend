@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Incredient({ number, onChange }) {
+function Incredient({ number, onChange, defAmount="", defItem = "", defUnits="" }) {
   const classes = useStyles()
-
-  const [units, Setunits] = useState(' ')
+  const [units, Setunits] = useState(defUnits)
+  
 
   const onUnitChange = (event) => {
     Setunits(event.target.value)
@@ -36,24 +36,25 @@ function Incredient({ number, onChange }) {
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Amount</InputLabel>
 
-        <TextField className={classes.textfield_amount} fullWidth={true} onChange={onChange} name={'amount ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
+        <TextField className={classes.textfield_amount} fullWidth={true} onInput={onChange} defaultValue={defAmount} name={'amount ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
       </Grid>
       <Grid item>
         <FormControl className={classes.formcontrol}>
           <InputLabel id="unit-selection-inputlabel">Unit</InputLabel>
           <Select id="unit-selection" value={units} onChange={onUnitChange} name={'units ' + number}>
-            <MenuItem value={' '}> </MenuItem>
+            <MenuItem value={''}></MenuItem>
             <MenuItem value={'g'}>g</MenuItem>
             <MenuItem value={'dl'}>dl</MenuItem>
-            <MenuItem value={'ts'}>ts</MenuItem>
-            <MenuItem value={'tbs'}>tbs</MenuItem>
+            <MenuItem value={'tsp'}>tsp</MenuItem>
+            <MenuItem value={'tbsp'}>tbsp</MenuItem>
+            <MenuItem value={'cups'}>cups</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Item</InputLabel>
 
-        <TextField className={classes.textfield_item} onChange={onChange} name={'item ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
+        <TextField className={classes.textfield_item} defaultValue={defItem} onInput={onChange} name={'item ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
       </Grid>
     </Grid>
   )

@@ -24,17 +24,17 @@ function BasicInfoBox({handleTitleChange, handleDescriptionChange, handleImageUR
       <Grid item>
         <InputLabel id="title-inputlabel" >Title</InputLabel>
 
-        <TextField onChange={handleTitleChange} inputProps={{ style: { textAlign: 'center', width:'40vw' } }}></TextField>
+        <TextField onInput={handleTitleChange} inputProps={{ style: { textAlign: 'center', width:'40vw' } }}></TextField>
       </Grid>
       <Grid item>
         <InputLabel id="description-inputlabel">Description</InputLabel>
 
-        <TextField multiline rows={4} variant="outlined" onChange={handleDescriptionChange} inputProps={{ style: { textAlign: 'center', width:'20vw' } }}></TextField>
+        <TextField multiline rows={4} variant="outlined" onInput={handleDescriptionChange} inputProps={{ style: { textAlign: 'center', width:'20vw' } }}></TextField>
       </Grid>
       <Grid item>
         <InputLabel id="image-url-inputlabel">Image URL</InputLabel>
 
-        <TextField onChange={handleImageURLChange} inputProps={{ style: { textAlign: 'center', width:'20vw' } }}></TextField>
+        <TextField onInput={handleImageURLChange} inputProps={{ style: { textAlign: 'center', width:'20vw' } }}></TextField>
       </Grid>
     </Grid>
   )
