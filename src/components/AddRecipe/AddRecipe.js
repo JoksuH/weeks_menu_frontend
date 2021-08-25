@@ -4,6 +4,13 @@ import CookingInstructions from './CookingInstructions'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 import { useState, useRef } from 'react'
+import { motion } from 'framer-motion'
+
+const variants = {
+  hidden: { opacity: 0, x: 100 },
+  visible: { opacity: 1, x: 0 },
+}
+
 
 function AddRecipe() {
   const [Title, SetTitle] = useState('')
@@ -145,14 +152,14 @@ function AddRecipe() {
 
   }
   return (
-    <div>
+    <motion.div initial="hidden" animate="visible" variants={variants}>
       <BasicInfoBox handleTitleChange={handleTitleChange} handleDescriptionChange={handleDescriptionChange} handleImageURLChange={handleImageURLChange} />
       <EnterIncredients handleIncredientChange={handleIncredientChange} handlePasting={handlePasting} />
       <CookingInstructions handleInstructionsChange={handleInstructionsChange} />
       <Button variant="contained" color="primary" onClick={saveRecipe} startIcon={<SaveIcon />}>
         Save
       </Button>
-    </div>
+    </motion.div>
   )
 }
 

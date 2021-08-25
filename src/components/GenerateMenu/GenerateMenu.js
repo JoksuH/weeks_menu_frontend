@@ -2,9 +2,16 @@ import TextField from '@material-ui/core/TextField'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import SaveIcon from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { useState, useEffect } from 'react'
 import MenuListItem from './MenuListItem'
+import { motion } from 'framer-motion'
+
+const variants = {
+  hidden: { opacity: 0, x: 100 },
+  visible: { opacity: 1, x: 0 },
+}
 
 const useStyles = makeStyles((theme) => ({
   mainbox: {
@@ -53,7 +60,7 @@ const GenerateMenu = () => {
       for (let i = 0; i < NumofDays; i++) {
         //Select a random number as an index
         let randomIndex = parseInt(Math.random() * AllRecipes.length)
-        //If number already selected, keep choosing a new one randomly until an unique one is found
+        //If number already selected, keep choosing a new one randomly until a unique one is found
         while (randomNumArr.includes(randomIndex)) {
           randomIndex = parseInt(Math.random() * AllRecipes.length)
         }
@@ -65,19 +72,38 @@ const GenerateMenu = () => {
   }
 
   const handleReSelection = (index) => {
-    let cloneArr  = [...SelectedRecipes]
+    let cloneArr = [...SelectedRecipes]
     let randomIndex = parseInt(Math.random() * AllRecipes.length)
     let selectedNewRecipe = AllRecipes[randomIndex]
-    //Check if randomly selected new recipe has already been selected before. If so, select another recipe
-    while (cloneArr.filter(recipe => recipe._id === selectedNewRecipe._id).length > 0) {
-      selectedNewRecipe = AllRecipes[parseInt(Math.random() * AllRecipes.length)]
+    //Check that the database has more recipes to choose from. Throw alert if not
+    if (cloneArr.length === AllRecipes.length) alert('The database does not contain more recipes to choose from')
+    else {
+      //Check if randomly selected new recipe has already been selected before. If so, select another recipe
+      while (cloneArr.filter((recipe) => recipe._id === selectedNewRecipe._id).length > 0) {
+        selectedNewRecipe = AllRecipes[parseInt(Math.random() * AllRecipes.length)]
+      }
+      cloneArr.splice(index, 1, selectedNewRecipe)
+      SetSelectedRecipes(cloneArr)
     }
-    cloneArr.splice(index,1,selectedNewRecipe)
-    SetSelectedRecipes(cloneArr)
+  }
+
+  const handleSaveMenu = () => {
+    const ObjectIdArr = []
+    SelectedRecipes.forEach((recipe) => ObjectIdArr.push(recipe._id))
+    fetch('http://localhost:4000/menus/addmenu', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        recipes: ObjectIdArr,
+      }),
+    }).then(() => alert('Menu Saved'))
   }
 
   return (
-    <>
+    <motion.div initial="hidden" animate="visible" variants={variants}>
       <Typography variant="h3">For how many days would you like to generate a menu?</Typography>
       <Box className={classes.mainbox}>
         <TextField
@@ -93,12 +119,17 @@ const GenerateMenu = () => {
           Generate
         </Button>
       </Box>
-      {SelectedRecipes.length > 0 && SelectedRecipes.map((recipe, index) => {
-        return(
-        <MenuListItem Recipe={recipe} key={recipe._id} index={index} onreSelection={handleReSelection}/>
-        )
-      })}
-    </>
+
+      {SelectedRecipes.length > 0 &&
+        SelectedRecipes.map((recipe, index) => {
+          return <MenuListItem Recipe={recipe} key={recipe._id} index={index} onreSelection={handleReSelection} />
+        })}
+      {SelectedRecipes.length > 0 && (
+        <Button className={classes.button} variant="contained" color="primary" startIcon={<SaveIcon />} onClick={handleSaveMenu}>
+          Save Menu
+        </Button>
+      )}
+    </motion.div>
   )
 }
 

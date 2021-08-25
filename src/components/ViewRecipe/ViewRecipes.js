@@ -4,6 +4,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useState, useEffect } from 'react'
 import RecipeCard from './RecipeCard'
 import RecipeView from './RecipeView'
+import { motion } from 'framer-motion'
+
+const variants = {
+  hidden: { opacity: 0, x: 100 },
+  visible: { opacity: 1, x: 0 },
+}
+
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -33,12 +40,12 @@ const ViewRecipes = () => {
     console.log(Recipe)
   }
   return (
-    <Grid container className={classes.grid} direction="row" alignContent="center" spacing={3}>
+    <Grid container className={classes.grid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="visible" variants={variants} component={motion.div}>
       {Recipes.length !== 0 &&
         Object.keys(SelectedRecipe).length === 0 &&
         Recipes.map((recipe, index) => {
           return (
-            <Grid item key={index}>
+            <Grid item key={index} xs={4}>
               <RecipeCard data={recipe} onSelect={onRecipeSelect} />
             </Grid>
           )

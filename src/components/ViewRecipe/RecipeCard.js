@@ -8,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '30%',
     margin: 'auto',
     marginTop: '5vh',
   },
@@ -36,12 +35,10 @@ const RecipeCard = ({ data, onSelect }) => {
           <CardHeader
             title={data.Title}
             titleTypographyProps={{ variant: 'h4' }}
-            //Get only the Date
-            subheader={data.dateAdded.split('T')[0]}
           />
           <CardMedia className={classes.media} image={data.ImageUrl} title={data.Title} />
           <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography noWrap  variant="body2" color="textSecondary" component="p">
               {data.Description}
             </Typography>
           </CardContent>
