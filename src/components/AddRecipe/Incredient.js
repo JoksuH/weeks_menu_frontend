@@ -36,7 +36,7 @@ function Incredient({ number, onChange, defAmount="", defItem = "", defUnits="" 
       <Grid item>
         <InputLabel id="unit-selection-inputlabel">Amount</InputLabel>
 
-        <TextField className={classes.textfield_amount} fullWidth={true} onInput={onChange} defaultValue={defAmount} name={'amount ' + number} inputProps={{ style: { textAlign: 'center' } }}></TextField>
+        <TextField className={classes.textfield_amount} fullWidth={true} onInput={onChange} defaultValue={defAmount} name={'amount ' + number} inputProps={{ style: { textAlign: 'center' }}}></TextField>
       </Grid>
       <Grid item>
         <FormControl className={classes.formcontrol}>
