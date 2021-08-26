@@ -37,7 +37,10 @@ const ViewRecipes = () => {
 
   const onRecipeSelect = (Recipe) => {
     SetSelectedRecipe(Recipe)
-    console.log(Recipe)
+  }
+
+  const handleExitClick = () => {
+    SetSelectedRecipe({})
   }
   return (
     <Grid container className={classes.grid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="visible" variants={variants} component={motion.div}>
@@ -50,7 +53,7 @@ const ViewRecipes = () => {
             </Grid>
           )
         })}
-      {Object.keys(SelectedRecipe).length > 0 && <RecipeView data={SelectedRecipe} />}
+      {Object.keys(SelectedRecipe).length > 0 && <RecipeView data={SelectedRecipe} onExitClick={handleExitClick}/>}
     </Grid>
   )
 }

@@ -36,6 +36,8 @@ function Navbar() {
             <StyledLink to="/">Generate Menu</StyledLink>
             <StyledLink to="/viewrecipes">View Recipes</StyledLink>
             <StyledLink to="/addrecipe">Add Recipe</StyledLink>
+            <StyledLink to="/shoppinglist">Get Shopping List</StyledLink>
+
 
         </MainGrid>
     )

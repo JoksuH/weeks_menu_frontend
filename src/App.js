@@ -2,6 +2,7 @@ import './App.css'
 import AddRecipe from './components/AddRecipe/AddRecipe'
 import GenerateMenu from './components/GenerateMenu/GenerateMenu'
 import ViewRecipes from './components/ViewRecipe/ViewRecipes'
+import GenerateShoppinglist from './components/GenerateShoppinglist/GenerateShoppinglist'
 import Navbar from './components/NavBar/NavBar'
 import { Switch, Route } from 'react-router-dom'
 
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route path="/addrecipe">
           <AddRecipe />
+        </Route>
+        <Route path="/shoppinglist">
+          <GenerateShoppinglist />
         </Route>
         <Route path="/">
           <GenerateMenu />
