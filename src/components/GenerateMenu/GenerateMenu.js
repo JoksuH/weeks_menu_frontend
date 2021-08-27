@@ -13,6 +13,12 @@ const variants = {
   visible: { opacity: 1, x: 0 },
 }
 
+const button = {
+  hidden: { opacity: 0, x: -50 },
+  show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.2, delay: index * 0.05 } }),
+}
+
+
 const useStyles = makeStyles((theme) => ({
   mainbox: {
     width: '80%',
@@ -125,7 +131,7 @@ const GenerateMenu = () => {
           return <MenuListItem Recipe={recipe} key={recipe._id} index={index} onreSelection={handleReSelection} />
         })}
       {SelectedRecipes.length > 0 && (
-        <Button className={classes.button} variant="contained" color="primary" startIcon={<SaveIcon />} onClick={handleSaveMenu}>
+        <Button className={classes.button} variant="contained" color="primary" initial="hidden" animate="show" variants={button} custom={SelectedRecipes.length} component={motion.div} startIcon={<SaveIcon />} onClick={handleSaveMenu}>
           Save Menu
         </Button>
       )}

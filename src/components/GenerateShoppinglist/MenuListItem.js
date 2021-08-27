@@ -38,7 +38,7 @@ const MenuListItem = ({ menu, onMenuSelect }) => {
         <Box style={{display: 'flex', flexDirection: 'column'}} initial="hidden" animate="visible" variants={variants} component={motion.div}>
           <Typography>Menu Created {menu.dateAdded.split('T')[0]}</Typography>
           <Typography variant="h5">Contains the following recipes:</Typography>
-            {menu.Recipes.map(recipe => {return (<Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}><ArrowRightIcon /><Typography>{recipe.Title}</Typography></Box>)})}
+            {menu.Recipes.map(recipe => {return (<Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}} key={recipe._id}><ArrowRightIcon /><Typography>{recipe.Title}</Typography></Box>)})}
           <Button className={classes.button} variant="contained" onClick={onSelection}>Create a Shopping List</Button>
         </Box>
       )}

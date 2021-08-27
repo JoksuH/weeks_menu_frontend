@@ -6,9 +6,16 @@ import RecipeCard from './RecipeCard'
 import RecipeView from './RecipeView'
 import { motion } from 'framer-motion'
 
-const variants = {
-  hidden: { opacity: 0, x: 100 },
-  visible: { opacity: 1, x: 0 },
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  }
+};
+
+const listItem = {
+  hidden: { opacity: 0, x: -50 },
+  show:index =>  ({ opacity: 1, x: 0, transition: {duration: 0.2, delay: index * 0.1}, })
 }
 
 
@@ -42,19 +49,22 @@ const ViewRecipes = () => {
   const handleExitClick = () => {
     SetSelectedRecipe({})
   }
-  return (
-    <Grid container className={classes.grid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="visible" variants={variants} component={motion.div}>
-      {Recipes.length !== 0 &&
-        Object.keys(SelectedRecipe).length === 0 &&
+  return (      
+    <>
+    {(Recipes) &&
+      <Grid container className={classes.grid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="show" variants={container} component={motion.div}>
+        {Object.keys(SelectedRecipe).length === 0 &&
         Recipes.map((recipe, index) => {
           return (
-            <Grid item key={index} xs={4}>
+            <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
               <RecipeCard data={recipe} onSelect={onRecipeSelect} />
             </Grid>
           )
         })}
       {Object.keys(SelectedRecipe).length > 0 && <RecipeView data={SelectedRecipe} onExitClick={handleExitClick}/>}
     </Grid>
+      }
+    </>
   )
 }
 

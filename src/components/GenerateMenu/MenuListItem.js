@@ -5,9 +5,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { motion } from 'framer-motion'
 
-const variants = {
-  hidden: { opacity: 0, x: 100 },
-  visible: { opacity: 1, x: 0 },
+const listItem = {
+  hidden: { opacity: 0, x: -50 },
+  show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.3, delay: index * 0.2 } }),
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +47,7 @@ const MenuListItem = ({ Recipe, index, onreSelection }) => {
   }
 
   return (
-    <Box className={classes.mainbox} initial="hidden" animate="visible" variants={variants} component={motion.div}>
+    <Box className={classes.mainbox} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
       <Box className={classes.leftbox}>
         <img src={Recipe.ImageUrl} alt={Recipe.Title} className={classes.image} />
         <Typography variant="h4" style={{ margin: 'auto' }}>

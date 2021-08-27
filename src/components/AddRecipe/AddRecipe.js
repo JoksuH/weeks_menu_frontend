@@ -41,9 +41,9 @@ function AddRecipe() {
     dataArr.forEach((element) => {
       const wordsArr = element.trim().split(' ')
       const itemText = wordsArr.slice(2, wordsArr.length).join(' ')
-      listOfamounts.current.push(wordsArr[0])
-      listOfunits.current.push(wordsArr[1])
-      listOfitems.current.push(itemText)
+      listOfamounts.current.push(wordsArr[0].toLowerCase())
+      listOfunits.current.push(wordsArr[1].toLowerCase())
+      listOfitems.current.push(itemText.toLowerCase())
     })
   }
 
@@ -134,19 +134,18 @@ function AddRecipe() {
       let ingredientString = element + ' ' + formatUnitsforDb(units[index]) + ' ' + items[index]
       ingredientStringArr.push(ingredientString)
     })
-    console.log(ingredientStringArr)
 
     return ingredientStringArr
   }
 
   const formatUnitsforDb = (string) => {
     
-    if (string.includes("cup")) string = "cups"
-    else if (string.includes("tablesp")) string = "tbsp"
-    else if (string.includes("tbs")) string = "tbsp"
-    else if (string.includes("ts")) string = "tsp"
-    else if (string.includes("teas")) string = "tsp"
-    else if (string.includes("gram")) string = "g"
+    if (string.toLower().includes("cup")) string = "cups"
+    else if (string.toLower().includes("tablesp")) string = "tbsp"
+    else if (string.toLower().includes("tbs")) string = "tbsp"
+    else if (string.toLower().includes("ts")) string = "tsp"
+    else if (string.toLower().includes("teas")) string = "tsp"
+    else if (string.toLower().includes("gram")) string = "g"
 
     return string
 

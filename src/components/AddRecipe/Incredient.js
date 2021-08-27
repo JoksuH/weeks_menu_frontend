@@ -42,7 +42,7 @@ function Incredient({ number, onChange, defAmount="", defItem = "", defUnits="" 
         <FormControl className={classes.formcontrol}>
           <InputLabel id="unit-selection-inputlabel">Unit</InputLabel>
           <Select id="unit-selection" value={units} onChange={onUnitChange} name={'units ' + number}>
-            <MenuItem value={''}></MenuItem>
+            <MenuItem value={'units'}>units</MenuItem>
             <MenuItem value={'g'}>g</MenuItem>
             <MenuItem value={'dl'}>dl</MenuItem>
             <MenuItem value={'tsp'}>tsp</MenuItem>
