@@ -1,8 +1,11 @@
-import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import ShoppingListItem from './ShoppingListItem'
+import ShoppingListPdf from './ShoppingListPdf'
 import { makeStyles } from '@material-ui/core/styles'
 import { useState, useEffect } from 'react'
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 import { motion } from 'framer-motion'
 
@@ -11,11 +14,6 @@ const container = {
   show: {
     opacity: 1,
   },
-}
-
-const listItem = {
-  hidden: { opacity: 0, x: -50 },
-  show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.2, delay: index * 0.05 } }),
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -27,15 +25,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  listbox: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'left',
-    marginTop: 10,
-  },
   button: {
-    width: '40%',
-    margin: '10px',
+    margin: '15px',
   },
 }))
 
@@ -43,6 +34,8 @@ const ShoppingListView = ({ menuRecipes }) => {
   const classes = useStyles()
 
   const [IngredientsList, SetIngredientsList] = useState({})
+  const [ShoppingIngredientsList, SetShoppingIngredientsList] = useState({})
+  const [PrintStatus, SetPrintStatus] = useState(false)
 
   useEffect(() => calculateItemsandAmounts(), [])
 
@@ -107,6 +100,7 @@ const ShoppingListView = ({ menuRecipes }) => {
       })
     })
     SetIngredientsList(IngredientDictListing)
+    SetShoppingIngredientsList(IngredientDictListing)
   }
 
   const formatSplitNum = (numString) => {
@@ -114,20 +108,41 @@ const ShoppingListView = ({ menuRecipes }) => {
     return parseInt(nums[0]) / parseInt(nums[1])
   }
 
+  const handleShoppingListPrint = () => {
+    SetPrintStatus(true)
+  }
+
+  const handleItemChecking = (amount, key) => {
+    const ShopListCopy = { ...ShoppingIngredientsList }
+    //If item is in the list, remove it
+    if (key in ShopListCopy) delete ShopListCopy[key]
+    //Else add it back
+    else ShopListCopy[key] = amount
+
+    SetShoppingIngredientsList(ShopListCopy)
+  }
+
   return (
     <>
       {Object.keys(IngredientsList).length > 0 && (
         <Box className={classes.mainbox} initial="hidden" animate="show" variants={container} component={motion.ul}>
+          <Typography style={{ fontStyle: 'italic' }} paragraph={true}>
+            You can select ingredients to remove from your printable shopping list by checking their box. This allows you to remove ones you might already have or don't need to purchase
+          </Typography>
+          <Button className={classes.button} variant="contained" onClick={handleShoppingListPrint}>
+            Print Shopping List
+          </Button>
+          {PrintStatus && (
+            <div>
+              <PDFDownloadLink document={<ShoppingListPdf List={ShoppingIngredientsList}/>} fileName="shoppinglist.pdf">
+                {({loading }) => (loading ? 'Loading document...' : 'Download now!')}
+              </PDFDownloadLink>
+            </div>
+          )}
           {Object.keys(IngredientsList).map((key, index) => {
-            return (
-              <Box className={classes.listbox} initial="hidden" animate="show" variants={listItem} component={motion.div} custom={index} key={index}>
-                <ArrowRightIcon />
-                <Typography align="left" style={{ marginLeft: '20px' }}>
-                  {IngredientsList[key] + ' ' + key}
-                </Typography>{' '}
-              </Box>
-            )
+            return <ShoppingListItem amount={IngredientsList[key]} item={key} index={index} onChecking={handleItemChecking} />
           })}
+         
         </Box>
       )}
     </>
