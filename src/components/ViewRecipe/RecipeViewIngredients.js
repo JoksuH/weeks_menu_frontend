@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
   mainbox: {
     width: '60%',
     margin: 'auto',
-    marginTop: '5vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between'
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   listbox: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'left',
+    justifyContent: 'center',
     marginTop: 10,
   },
   button: {
@@ -32,7 +31,7 @@ const RecipeViewIngredients = ({Ingredients}) => {
   return (
    <Box className={classes.mainbox}>
        {(Ingredients) && Ingredients.map(ingredient => {
-       return ( <Box className={classes.listbox}><ArrowRightIcon /><Typography variant="p" align="left" style={{marginLeft: '20px'}}>{ingredient}</Typography> </Box>)
+       return ( <Box className={classes.listbox}><Typography variant="p" align="left" style={{marginLeft: '20px'}}>{ingredient}</Typography> </Box>)
        })
         }
     </Box>

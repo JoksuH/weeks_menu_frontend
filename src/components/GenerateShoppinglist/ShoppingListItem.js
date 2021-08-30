@@ -12,19 +12,11 @@ const listItem = {
 }
   
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '30%',
-    margin: 'auto',
-    marginTop: '5vh',
-  },
   listbox: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'left',
+    justifyContent: 'flex-start',
     marginTop: 10,
-  },
-  button: {
-    margin: '30px',
   },
 }))
 

@@ -98,10 +98,10 @@ function EnterIncredients({handleIncredientChange, handlePasting}) {
           </Grid>
         )
       })}
-      <Button variant="contained" onClick={handleAddIngredientButtonClick} className={classes.button} startIcon={<AddCircleOutlineIcon />}>
+      <Button variant="contained" color="secondary" onClick={handleAddIngredientButtonClick} className={classes.button} startIcon={<AddCircleOutlineIcon />}>
         Add New Incredient
       </Button>
-      {!Pasting ? <Button variant="contained" onClick={handlePastingReqButtonClicked} className={classes.button} startIcon={<FileCopyIcon />}>
+      {!Pasting ? <Button variant="contained" color="secondary" onClick={handlePastingReqButtonClicked} className={classes.button} startIcon={<FileCopyIcon />}>
         Paste Ingredients
       </Button> : <Button variant="contained" color="primary" onClick={handlePastingConfButtonClicked} className={classes.button} startIcon={<FileCopyIcon />}>
         Confirm Paste

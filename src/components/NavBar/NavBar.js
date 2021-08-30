@@ -7,7 +7,7 @@ const MainGrid = styled(Grid)({
     flexDirection: 'row',
     justifyContent: 'center',
     height: 50,
-    background: 'rgb(19, 151, 213)',
+    background: '#CC9966',
     marginBottom: 20,
 })
 

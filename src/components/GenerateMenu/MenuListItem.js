@@ -55,7 +55,7 @@ const MenuListItem = ({ Recipe, index, onreSelection }) => {
         </Typography>
       </Box>
       <Box className={classes.rightbox}>
-        <Button className={classes.button} variant="contained" onClick={handleReSelection}>
+        <Button className={classes.button} variant="contained" color="secondary" onClick={handleReSelection}>
           Choose Another
         </Button>
       </Box>

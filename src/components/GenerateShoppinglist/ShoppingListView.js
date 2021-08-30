@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: '15px',
+    marginBottom: '5vh'
   },
 }))
 
@@ -129,7 +130,7 @@ const ShoppingListView = ({ menuRecipes }) => {
           <Typography style={{ fontStyle: 'italic' }} paragraph={true}>
             You can select ingredients to remove from your printable shopping list by checking their box. This allows you to remove ones you might already have or don't need to purchase
           </Typography>
-          <Button className={classes.button} variant="contained" onClick={handleShoppingListPrint}>
+          <Button className={classes.button} variant="contained" color="primary" onClick={handleShoppingListPrint}>
             Print Shopping List
           </Button>
           {PrintStatus && (

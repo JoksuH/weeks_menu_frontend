@@ -37,6 +37,20 @@ const GenerateShoppinglist = () => {
   const onMenuSelect = (menu) => {
     SetSelectedMenu(menu)
   }
+
+  const onMenuDelete = (menu_id) => {
+    const OtherMenus = Menus.filter(menu => menu._id !== menu_id)
+    SetMenus(OtherMenus)
+    fetch(`http://localhost:4000/menus/${menu_id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {if (response.status === 200) alert('Menu Deleted')})
+
+  }
+
   return (
     <Grid container className={classes.grid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="visible" variants={variants} component={motion.div}>
       {Menus.length !== 0 &&
@@ -44,7 +58,7 @@ const GenerateShoppinglist = () => {
         Menus.map((menu, index) => {
           return (
             <Grid item key={index} xs={12}>
-              <MenuListItem menu={menu} onMenuSelect={onMenuSelect}/>
+              <MenuListItem menu={menu} onMenuSelect={onMenuSelect} onMenuDelete={onMenuDelete}/>
             </Grid>
           )
         })}

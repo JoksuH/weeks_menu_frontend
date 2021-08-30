@@ -1,7 +1,8 @@
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import { makeStyles } from '@material-ui/core/styles'
 import { motion } from 'framer-motion'
 
@@ -17,21 +18,27 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginTop: '5vh',
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
+  buttonbox: {
+  display: 'flex', 
+  flexDirection: 'row',
+  justifyContent: 'center'
+},
   button: {
     margin: '30px',
   },
 }))
 
-const MenuListItem = ({ menu, onMenuSelect }) => {
+const MenuListItem = ({ menu, onMenuSelect, onMenuDelete }) => {
   const classes = useStyles()
 
  const onSelection = () => {
     onMenuSelect(menu)
  }
+
+ const onDelete = () => {
+  onMenuDelete(menu._id)
+}
+
   return (
     <>
       {menu && (
@@ -39,7 +46,10 @@ const MenuListItem = ({ menu, onMenuSelect }) => {
           <Typography>Menu Created {menu.dateAdded.split('T')[0]}</Typography>
           <Typography variant="h5">Contains the following recipes:</Typography>
             {menu.Recipes.map(recipe => {return (<Box style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}} key={recipe._id}><ArrowRightIcon /><Typography>{recipe.Title}</Typography></Box>)})}
-          <Button className={classes.button} variant="contained" onClick={onSelection}>Create a Shopping List</Button>
+            <Box style={{}} initial="hidden" animate="visible" variants={variants} component={motion.div}>
+            <Button className={classes.button} variant="contained" color="primary" onClick={onSelection}> Create a Shopping List</Button>
+            <Button className={classes.button} variant="contained" color="secondary" onClick={onDelete} startIcon={<DeleteForeverIcon />}>Delete Menu</Button>
+            </Box>
         </Box>
       )}
     </>

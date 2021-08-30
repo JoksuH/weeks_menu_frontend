@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
   mainbox: {
     width: '80%',
     margin: 'auto',
-    marginTop: '5vh',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -20,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   media: {
-    height: '20vh',
+    height: '15vh',
+    marginTop: '5vh'
   },
   button: {
     width: '40%',

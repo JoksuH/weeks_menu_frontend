@@ -109,7 +109,7 @@ const GenerateMenu = () => {
   }
 
   return (
-    <motion.div initial="hidden" animate="visible" variants={variants}>
+    <motion.div initial="hidden" animate="visible" variants={variants} style={{marginTop: SelectedRecipes.length > 0 ? '4vh' : '35vh'}}>
       <Typography variant="h3">For how many days would you like to generate a menu?</Typography>
       <Box className={classes.mainbox}>
         <TextField
