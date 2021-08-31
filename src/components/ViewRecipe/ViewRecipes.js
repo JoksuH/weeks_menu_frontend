@@ -70,18 +70,20 @@ const ViewRecipes = () => {
     <>
       {Recipes && (
         <Grid container className={classes.maingrid} direction="row" alignContent="center" spacing={5} initial="hidden" animate="show" variants={container} component={motion.div}>
-          <Grid className={classes.search}>
-            <TextField label="Search For Recipes" className={classes.search} onChange={handleSearchTyping}></TextField>
-          </Grid>
-          {Object.keys(SelectedRecipe).length === 0 && Recipes.length > 0 ? (
+          {Object.keys(SelectedRecipe).length === 0 && (
+            <Grid className={classes.search}>
+              <TextField label="Search For Recipes" className={classes.search} onChange={handleSearchTyping}></TextField>
+            </Grid>
+          )}
+          {Object.keys(SelectedRecipe).length === 0 &&
             Recipes.map((recipe, index) => {
               return (
                 <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
                   <RecipeCard data={recipe} onSelect={onRecipeSelect} />
                 </Grid>
               )
-            })
-          ) : (
+            })}
+          {Recipes.length === 0 && Object.keys(SelectedRecipe).length === 0 && (
             <Grid className={classes.search} style={{ marginTop: '20vh' }}>
               <Typography variant="h3">No results found...</Typography>
             </Grid>
