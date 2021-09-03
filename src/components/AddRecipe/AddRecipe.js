@@ -130,6 +130,9 @@ function AddRecipe() {
     // Combine 3 arrays to a string to match database array values
     let ingredientStringArr = []
 
+    console.log(units)
+    console.log(items)
+
     amounts.forEach((element, index) => {
       let ingredientString = element + ' ' + formatUnitsforDb(units[index]) + ' ' + items[index]
       ingredientStringArr.push(ingredientString)
@@ -140,12 +143,12 @@ function AddRecipe() {
 
   const formatUnitsforDb = (string) => {
     
-    if (string.toLower().includes("cup")) string = "cups"
-    else if (string.toLower().includes("tablesp")) string = "tbsp"
-    else if (string.toLower().includes("tbs")) string = "tbsp"
-    else if (string.toLower().includes("ts")) string = "tsp"
-    else if (string.toLower().includes("teas")) string = "tsp"
-    else if (string.toLower().includes("gram")) string = "g"
+    if (string.toLowerCase().includes("cup")) string = "cups"
+    else if (string.toLowerCase().includes("tablesp")) string = "tbsp"
+    else if (string.toLowerCase().includes("tbs")) string = "tbsp"
+    else if (string.toLowerCase().includes("ts")) string = "tsp"
+    else if (string.toLowerCase().includes("teas")) string = "tsp"
+    else if (string.toLowerCase().includes("gram")) string = "g"
 
     return string
 

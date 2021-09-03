@@ -1,6 +1,10 @@
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import Button from '@material-ui/core/Button'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import { useState, useEffect } from 'react'
 import RecipeCard from './RecipeCard'
 import RecipeView from './RecipeView'
@@ -36,6 +40,8 @@ const ViewRecipes = () => {
   const [Recipes, SetRecipes] = useState([])
   const [BackUPRecipes, SetBackUPRecipes] = useState([])
   const [SelectedRecipe, SetSelectedRecipe] = useState({})
+  const [OpenDialog, SetOpenDialog] = useState(false)
+  const [RecipeIDtoDelete, SetRecipeIDtoDelete] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:4000/recipes/', {
@@ -60,6 +66,32 @@ const ViewRecipes = () => {
     SetSelectedRecipe({})
   }
 
+  const handleDeleteRequest = (id) => {
+    SetRecipeIDtoDelete(id)
+    SetOpenDialog(true)
+  }
+
+  const handleDialogClose = () => {
+    SetOpenDialog(false)
+    SetRecipeIDtoDelete('')
+  }
+
+  const handleDeleteConfirm = () => {
+    if (RecipeIDtoDelete !== '') {
+    fetch(`http://localhost:4000/recipes/${RecipeIDtoDelete}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {if (response.status === 200) alert('Menu Deleted')})
+  }
+    SetOpenDialog(false)    
+    const recipesLeft = Recipes.filter(recipe => recipe._id !== RecipeIDtoDelete)
+    SetRecipeIDtoDelete('')
+    SetRecipes(recipesLeft)
+  }
+
   const handleSearchTyping = (event) => {
     //Use the backupRecipes array to allow removing search terms and receiving proper results
     const filteredRecipes = BackUPRecipes.filter((recipe) => recipe.Title.toLowerCase().includes(event.target.value))
@@ -79,7 +111,7 @@ const ViewRecipes = () => {
             Recipes.map((recipe, index) => {
               return (
                 <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
-                  <RecipeCard data={recipe} onSelect={onRecipeSelect} />
+                  <RecipeCard data={recipe} onSelect={onRecipeSelect} onDelete={handleDeleteRequest} />
                 </Grid>
               )
             })}
@@ -89,6 +121,17 @@ const ViewRecipes = () => {
             </Grid>
           )}
           {Object.keys(SelectedRecipe).length > 0 && <RecipeView data={SelectedRecipe} onExitClick={handleExitClick} />}
+          <Dialog open={OpenDialog} onClose={handleDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this recipe?"}</DialogTitle>
+            <DialogActions>
+              <Button onClick={handleDeleteConfirm} color="primary" variant="outlined">
+                Confirm
+              </Button>
+              <Button onClick={handleDialogClose} color="secondary" autoFocus>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Grid>
       )}
     </>

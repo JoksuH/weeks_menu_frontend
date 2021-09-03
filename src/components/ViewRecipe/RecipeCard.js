@@ -5,6 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import Button from '@material-ui/core/Button'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,35 +16,44 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  button: {
-    width: '40%',
+  openbutton: {
+    width: '30%',
     margin: '10px',
+  },
+  deletebutton: {
+    width: '20%',
+    margin: '10px',
+    marginLeft: '30px',
   },
 }))
 
-const RecipeCard = ({ data, onSelect }) => {
+const RecipeCard = ({ data, onSelect, onDelete }) => {
   const classes = useStyles()
 
-  const handleButtonClick = () => {
+  const handleOpenButtonClick = () => {
     onSelect(data)
+  }
+
+  const handleDeleteButtonClick = () => {
+    onDelete(data._id)
   }
 
   return (
     <>
       {data && (
         <Card className={classes.root} key={data._id}>
-          <CardHeader
-            title={data.Title}
-            titleTypographyProps={{ variant: 'h4' }}
-          />
+          <CardHeader title={data.Title} titleTypographyProps={{ variant: 'h4' }} />
           <CardMedia className={classes.media} image={data.ImageUrl} title={data.Title} />
           <CardContent>
-            <Typography noWrap  variant="body2" color="textSecondary" component="p">
+            <Typography noWrap variant="body2" color="textSecondary" component="p">
               {data.Description}
             </Typography>
           </CardContent>
-          <Button className={classes.button} variant="contained" color="primary" onClick={handleButtonClick}>
+          <Button className={classes.openbutton} variant="contained" color="primary" onClick={handleOpenButtonClick}>
             Open
+          </Button>
+          <Button className={classes.deletebutton} variant="contained" color="secondary" onClick={handleDeleteButtonClick} startIcon={<DeleteForeverIcon />}>
+            Delete
           </Button>
         </Card>
       )}
