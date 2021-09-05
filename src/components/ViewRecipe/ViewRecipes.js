@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ViewRecipes = () => {
+const ViewRecipes = ({ onSelection }) => {
   const classes = useStyles()
   const [Recipes, SetRecipes] = useState([])
   const [BackUPRecipes, SetBackUPRecipes] = useState([])
@@ -59,7 +59,8 @@ const ViewRecipes = () => {
   }, [])
 
   const onRecipeSelect = (Recipe) => {
-    SetSelectedRecipe(Recipe)
+    if (onSelection) onSelection(Recipe)
+    else SetSelectedRecipe(Recipe)
   }
 
   const handleExitClick = () => {
@@ -78,16 +79,18 @@ const ViewRecipes = () => {
 
   const handleDeleteConfirm = () => {
     if (RecipeIDtoDelete !== '') {
-    fetch(`http://localhost:4000/recipes/${RecipeIDtoDelete}`, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {if (response.status === 200) alert('Menu Deleted')})
-  }
-    SetOpenDialog(false)    
-    const recipesLeft = Recipes.filter(recipe => recipe._id !== RecipeIDtoDelete)
+      fetch(`http://localhost:4000/recipes/${RecipeIDtoDelete}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {
+        if (response.status === 200) alert('Menu Deleted')
+      })
+    }
+    SetOpenDialog(false)
+    const recipesLeft = Recipes.filter((recipe) => recipe._id !== RecipeIDtoDelete)
     SetRecipeIDtoDelete('')
     SetRecipes(recipesLeft)
   }
@@ -107,11 +110,19 @@ const ViewRecipes = () => {
               <TextField label="Search For Recipes" className={classes.search} onChange={handleSearchTyping}></TextField>
             </Grid>
           )}
-          {Object.keys(SelectedRecipe).length === 0 &&
+          {Object.keys(SelectedRecipe).length === 0 && !onSelection &&
             Recipes.map((recipe, index) => {
               return (
                 <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
                   <RecipeCard data={recipe} onSelect={onRecipeSelect} onDelete={handleDeleteRequest} />
+                </Grid>
+              )
+            })}
+             {Object.keys(SelectedRecipe).length === 0 && onSelection &&
+            Recipes.map((recipe, index) => {
+              return (
+                <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
+                  <RecipeCard data={recipe} onSelect={onRecipeSelect} />
                 </Grid>
               )
             })}
@@ -122,7 +133,7 @@ const ViewRecipes = () => {
           )}
           {Object.keys(SelectedRecipe).length > 0 && <RecipeView data={SelectedRecipe} onExitClick={handleExitClick} />}
           <Dialog open={OpenDialog} onClose={handleDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this recipe?"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{'Are you sure you want to delete this recipe?'}</DialogTitle>
             <DialogActions>
               <Button onClick={handleDeleteConfirm} color="primary" variant="outlined">
                 Confirm

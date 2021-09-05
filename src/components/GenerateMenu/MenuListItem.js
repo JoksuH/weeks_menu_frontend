@@ -1,4 +1,4 @@
-import TextField from '@material-ui/core/TextField'
+import LoopIcon from '@material-ui/icons/Loop'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
@@ -33,17 +33,22 @@ const useStyles = makeStyles((theme) => ({
     height: '15vh',
     marginRight: '2vw',
   },
-  button: {
+  icon: {
     height: '40%',
     margin: 'auto',
+    cursor: 'pointer',
   },
 }))
 
-const MenuListItem = ({ Recipe, index, onreSelection }) => {
+const MenuListItem = ({ Recipe, index, onreSelection, onRecipeSelect }) => {
   const classes = useStyles()
 
   const handleReSelection = () => {
     onreSelection(index)
+  }
+
+  const handleRecipeSelection = () => {
+    onRecipeSelect(index)
   }
 
   return (
@@ -55,8 +60,9 @@ const MenuListItem = ({ Recipe, index, onreSelection }) => {
         </Typography>
       </Box>
       <Box className={classes.rightbox}>
-        <Button className={classes.button} variant="contained" color="secondary" onClick={handleReSelection}>
-          Choose Another
+        <LoopIcon className={classes.icon} color="secondary" onClick={handleReSelection} fontSize="large" />
+        <Button className={classes.icon} style={{ marginLeft: '20px' }} variant="contained" color="primary" onClick={handleRecipeSelection}>
+          Choose a Recipe
         </Button>
       </Box>
     </Box>

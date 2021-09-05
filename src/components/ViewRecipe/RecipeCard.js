@@ -49,12 +49,20 @@ const RecipeCard = ({ data, onSelect, onDelete }) => {
               {data.Description}
             </Typography>
           </CardContent>
+          {onDelete ? 
+          <>
           <Button className={classes.openbutton} variant="contained" color="primary" onClick={handleOpenButtonClick}>
             Open
           </Button>
           <Button className={classes.deletebutton} variant="contained" color="secondary" onClick={handleDeleteButtonClick} startIcon={<DeleteForeverIcon />}>
             Delete
           </Button>
+          </>
+          : 
+          <Button className={classes.openbutton} variant="contained" color="primary" onClick={handleOpenButtonClick}>
+            Select
+          </Button>
+          }
         </Card>
       )}
     </>

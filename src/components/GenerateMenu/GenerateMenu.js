@@ -6,6 +6,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { useState, useEffect } from 'react'
 import MenuListItem from './MenuListItem'
+import ViewRecipes from '../ViewRecipe/ViewRecipes'
 import { motion } from 'framer-motion'
 
 const variants = {
@@ -17,7 +18,6 @@ const button = {
   hidden: { opacity: 0, x: -50 },
   show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.2, delay: index * 0.05 } }),
 }
-
 
 const useStyles = makeStyles((theme) => ({
   mainbox: {
@@ -43,6 +43,8 @@ const GenerateMenu = () => {
   const [AllRecipes, SetAllRecipes] = useState([])
   const [SelectedRecipes, SetSelectedRecipes] = useState([])
   const [NumofDays, SetNumofDays] = useState(3)
+  const [ManuallySelectRecipe, SetManuallySelectRecipe] = useState(false)
+  const [RecipetoReplace, SetRecipetoReplace] = useState(null)
 
   useEffect(() => {
     fetch('http://localhost:4000/recipes/', {
@@ -93,6 +95,24 @@ const GenerateMenu = () => {
     }
   }
 
+  const handleRecipeSelection = (index) => {
+    SetRecipetoReplace(index)
+    SetManuallySelectRecipe(true)
+  }
+
+  const onManualRecipeSelection = (Recipe) => {
+    console.log(Recipe)
+    //If recipe is already on the list, throw alert
+    if (SelectedRecipes.some((recipe) => recipe._id === Recipe._id)) alert('Recipe already in the list')
+    else {
+      const newRecipeList = [...SelectedRecipes]
+      newRecipeList.splice(RecipetoReplace, 1, Recipe)
+      SetSelectedRecipes(newRecipeList)
+      SetManuallySelectRecipe(false)
+      SetRecipetoReplace(null)
+    }
+  }
+
   const handleSaveMenu = () => {
     const ObjectIdArr = []
     SelectedRecipes.forEach((recipe) => ObjectIdArr.push(recipe._id))
@@ -109,28 +129,33 @@ const GenerateMenu = () => {
   }
 
   return (
-    <motion.div initial="hidden" animate="visible" variants={variants} style={{marginTop: SelectedRecipes.length > 0 ? '4vh' : '35vh'}}>
-      <Typography variant="h3">For how many days would you like to generate a menu?</Typography>
-      <Box className={classes.mainbox}>
-        <TextField
-          className={classes.textfield}
-          value={NumofDays.toString()}
-          onChange={handleDaySelection}
-          //Max Amount of days is either 14 or the number of recipes in the database if lower than 14
-          InputProps={{ inputProps: { min: 0, max: AllRecipes.length > 14 ? 14 : AllRecipes.length } }}
-          inputProps={{ style: { textAlign: 'center', fontSize: '24px' } }}
-          type="number"
-        />
-        <Button className={classes.button} variant="contained" color="primary" onClick={handleGenerateButtonClick}>
-          Generate
-        </Button>
-      </Box>
-
+    <motion.div initial="hidden" animate="visible" variants={variants} style={{ marginTop: SelectedRecipes.length > 0 ? '4vh' : '35vh' }}>
+      {ManuallySelectRecipe === false && (
+        <>
+          <Typography variant="h3">For how many days would you like to generate a menu?</Typography>
+          <Box className={classes.mainbox}>
+            <TextField
+              className={classes.textfield}
+              value={NumofDays.toString()}
+              onChange={handleDaySelection}
+              //Max Amount of days is either 14 or the number of recipes in the database if lower than 14
+              InputProps={{ inputProps: { min: 0, max: AllRecipes.length > 14 ? 14 : AllRecipes.length } }}
+              inputProps={{ style: { textAlign: 'center', fontSize: '24px' } }}
+              type="number"
+            />
+            <Button className={classes.button} variant="contained" color="primary" onClick={handleGenerateButtonClick}>
+              Generate
+            </Button>
+          </Box>
+        </>
+      )}
       {SelectedRecipes.length > 0 &&
+        ManuallySelectRecipe === false &&
         SelectedRecipes.map((recipe, index) => {
-          return <MenuListItem Recipe={recipe} key={recipe._id} index={index} onreSelection={handleReSelection} />
+          return <MenuListItem Recipe={recipe} key={recipe._id} index={index} onreSelection={handleReSelection} onRecipeSelect={handleRecipeSelection} />
         })}
-      {SelectedRecipes.length > 0 && (
+      {ManuallySelectRecipe && <ViewRecipes onSelection={onManualRecipeSelection} />}
+      {SelectedRecipes.length > 0 && ManuallySelectRecipe === false && (
         <Button className={classes.button} variant="contained" color="primary" initial="hidden" animate="show" variants={button} custom={SelectedRecipes.length} component={motion.div} startIcon={<SaveIcon />} onClick={handleSaveMenu}>
           Save Menu
         </Button>
