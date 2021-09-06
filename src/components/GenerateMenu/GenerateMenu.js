@@ -87,7 +87,7 @@ const GenerateMenu = () => {
     if (cloneArr.length === AllRecipes.length) alert('The database does not contain more recipes to choose from')
     else {
       //Check if randomly selected new recipe has already been selected before. If so, select another recipe
-      while (cloneArr.filter((recipe) => recipe._id === selectedNewRecipe._id).length > 0) {
+      while (cloneArr.find((recipe) => recipe._id === selectedNewRecipe._id)) {
         selectedNewRecipe = AllRecipes[parseInt(Math.random() * AllRecipes.length)]
       }
       cloneArr.splice(index, 1, selectedNewRecipe)
@@ -101,7 +101,6 @@ const GenerateMenu = () => {
   }
 
   const onManualRecipeSelection = (Recipe) => {
-    console.log(Recipe)
     //If recipe is already on the list, throw alert
     if (SelectedRecipes.some((recipe) => recipe._id === Recipe._id)) alert('Recipe already in the list')
     else {

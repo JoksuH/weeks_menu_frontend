@@ -16,7 +16,7 @@ const container = {
   },
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   mainbox: {
     width: '60%',
     margin: 'auto',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: '15px',
-    marginBottom: '5vh'
+    marginBottom: '5vh',
   },
 }))
 
@@ -38,9 +38,7 @@ const ShoppingListView = ({ menuRecipes }) => {
   const [ShoppingIngredientsList, SetShoppingIngredientsList] = useState({})
   const [PrintStatus, SetPrintStatus] = useState(false)
 
-  useEffect(() => calculateItemsandAmounts(), [])
-
-  const calculateItemsandAmounts = () => {
+  useEffect(() => {
     const IngredientDictListing = {}
 
     menuRecipes.forEach((recipe) => {
@@ -102,7 +100,7 @@ const ShoppingListView = ({ menuRecipes }) => {
     })
     SetIngredientsList(IngredientDictListing)
     SetShoppingIngredientsList(IngredientDictListing)
-  }
+  }, [menuRecipes])
 
   const formatSplitNum = (numString) => {
     const nums = numString.split('/')
@@ -135,15 +133,14 @@ const ShoppingListView = ({ menuRecipes }) => {
           </Button>
           {PrintStatus && (
             <div>
-              <PDFDownloadLink document={<ShoppingListPdf List={ShoppingIngredientsList}/>} fileName="shoppinglist.pdf">
-                {({loading }) => (loading ? 'Loading document...' : 'Download now!')}
+              <PDFDownloadLink document={<ShoppingListPdf List={ShoppingIngredientsList} />} fileName="shoppinglist.pdf">
+                {({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
               </PDFDownloadLink>
             </div>
           )}
           {Object.keys(IngredientsList).map((key, index) => {
-            return <ShoppingListItem amount={IngredientsList[key]} item={key} index={index} onChecking={handleItemChecking} />
+            return <ShoppingListItem amount={IngredientsList[key]} item={key} index={index} key={key + index} onChecking={handleItemChecking} />
           })}
-         
         </Box>
       )}
     </>

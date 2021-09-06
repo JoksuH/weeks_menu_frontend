@@ -17,7 +17,6 @@ function AddRecipe() {
   const [Description, SetDescription] = useState('')
   const [ImageURL, SetImageURL] = useState('')
   const [Instructions, SetInstructions] = useState('')
-  //Does this need to keep track of incredient data or just get it from enteringredients module?
   const listOfamounts = useRef([])
   const listOfunits = useRef([])
   const listOfitems = useRef([])
@@ -103,8 +102,10 @@ function AddRecipe() {
 
           break
         }
+      
+      default:
     }
-    console.log(listOfitems)
+      
   }
 
   const saveRecipe = () => {

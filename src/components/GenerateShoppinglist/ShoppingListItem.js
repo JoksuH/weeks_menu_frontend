@@ -1,9 +1,8 @@
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Checkbox from '@material-ui/core/Checkbox'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import { makeStyles } from '@material-ui/core/styles'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const listItem = {
@@ -24,7 +23,15 @@ const ShoppingListItem = ({ amount, item, index, onChecking }) => {
   const classes = useStyles()
 
   const [Checked,SetChecked] = useState(false)
+  const [Amount,SetAmount] = useState(amount)
 
+
+  useEffect(() => {
+    //Removes the units measurement unit from the list to make it look nicer. 3 units red pepper => 3 red peppers
+    if (amount.includes("units")) {
+      SetAmount(amount.replace('units',''))
+    }
+  }, [amount])
 
   const onChecked = () => {
     SetChecked(!Checked)
@@ -33,13 +40,13 @@ const ShoppingListItem = ({ amount, item, index, onChecking }) => {
   return (
     <>
       {item && (
-        <Box className={classes.listbox} initial="hidden" animate="show" variants={listItem} component={motion.div} custom={index} key={index}>
+        <Box className={classes.listbox} initial="hidden" animate="show" variants={listItem} component={motion.div} custom={index} key={index + Amount}>
       <Checkbox
         checked={Checked}
         color="primary"
         onChange={onChecked}
       />          <Typography align="left" style={{ marginLeft: '20px', textDecoration: Checked ? "line-through" : 'none', fontSize:'16px'}} variant={'overline'}>
-            {amount + ' ' + item}
+            {Amount + ' ' + item}
           </Typography>{' '}
         </Box>
       )}

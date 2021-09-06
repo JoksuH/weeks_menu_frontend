@@ -25,10 +25,6 @@ const StyledLink = styled(Link)({
        
 })  
 
-const Image = styled('img')({
-    width: '15%',
-})
-
 function Navbar() {
 
     return (
