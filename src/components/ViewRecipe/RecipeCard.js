@@ -7,7 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     margin: 'auto',
     marginTop: '5vh',
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px',
   },
   deletebutton: {
-    width: '20%',
+    width: '30%',
     margin: '10px',
     marginLeft: '30px',
   },

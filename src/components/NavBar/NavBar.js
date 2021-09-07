@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid'
 import { styled } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Link } from 'react-router-dom'
 
 const MainGrid = styled(Grid)({
@@ -14,7 +15,6 @@ const MainGrid = styled(Grid)({
 const StyledLink = styled(Link)({
     marginRight: '35px',
     marginTop: 10,
-    fontSize:' 22px',
     color: 'white',
     textDecoration: 'none',
     "&:hover": {
@@ -25,16 +25,15 @@ const StyledLink = styled(Link)({
        
 })  
 
-function Navbar() {
+const Navbar = () => {
 
+    const smallScreen = useMediaQuery('(max-width:600px)')
     return (
         <MainGrid>
-            <StyledLink to="/">Generate Menu</StyledLink>
-            <StyledLink to="/viewrecipes">View Recipes</StyledLink>
-            <StyledLink to="/addrecipe">Add Recipe</StyledLink>
-            <StyledLink to="/shoppinglist">Get Shopping List</StyledLink>
-
-
+            <StyledLink to="/" style={{fontSize: smallScreen ? '14px' : '22px'}}>Generate Menu</StyledLink>
+            <StyledLink to="/viewrecipes" style={{fontSize: smallScreen ? '14px' : '22px'}}>View Recipes</StyledLink>
+            <StyledLink to="/addrecipe" style={{fontSize: smallScreen ? '14px' : '22px'}}>Add Recipe</StyledLink>
+            <StyledLink to="/shoppinglist" style={{fontSize: smallScreen ? '14px' : '22px'}}>Get Shopping List</StyledLink>
         </MainGrid>
     )
 }

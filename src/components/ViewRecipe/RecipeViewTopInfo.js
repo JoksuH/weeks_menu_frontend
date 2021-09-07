@@ -1,5 +1,6 @@
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -30,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
 
 const RecipeViewTopInfo = ({ Title, Description, ImageUrl }) => {
   const classes = useStyles()
+  const smallScreen = useMediaQuery('(max-width:600px)')
 
   return (
-    <Box className={classes.mainbox}>
+    <Box className={smallScreen ? classes.rightbox : classes.mainbox}>
       <img src={ImageUrl} alt={Title} className={classes.media} />
       <Box className={classes.rightbox}>
-        <Typography variant="h3">{Title}</Typography>
-        <Typography>{Description}</Typography>
+        <Typography variant="h3" gutterBottom={true}>{Title}</Typography>
+        <Typography gutterBottom={true}>{Description} </Typography>
       </Box>
     </Box>
   )

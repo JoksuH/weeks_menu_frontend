@@ -2,6 +2,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
@@ -10,7 +11,7 @@ const listItem = {
     show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.2, delay: index * 0.05 } }),
 }
   
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   listbox: {
     display: 'flex',
     flexDirection: 'row',
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ShoppingListItem = ({ amount, item, index, onChecking }) => {
   const classes = useStyles()
+  const smallScreen = useMediaQuery('(max-width:600px)')
+
 
   const [Checked,SetChecked] = useState(false)
   const [Amount,SetAmount] = useState(amount)
@@ -45,7 +48,7 @@ const ShoppingListItem = ({ amount, item, index, onChecking }) => {
         checked={Checked}
         color="primary"
         onChange={onChecked}
-      />          <Typography align="left" style={{ marginLeft: '20px', textDecoration: Checked ? "line-through" : 'none', fontSize:'16px'}} variant={'overline'}>
+      />          <Typography align="left" style={{ marginLeft: '20px', textDecoration: Checked ? "line-through" : 'none', fontSize:'16px'}} variant={smallScreen ? 'caption' : 'overline'}>
             {Amount + ' ' + item}
           </Typography>{' '}
         </Box>

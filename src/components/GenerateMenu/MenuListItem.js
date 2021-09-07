@@ -1,6 +1,7 @@
 import LoopIcon from '@material-ui/icons/Loop'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { motion } from 'framer-motion'
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MenuListItem = ({ Recipe, index, onreSelection, onRecipeSelect }) => {
   const classes = useStyles()
+  const smallScreen = useMediaQuery('(max-width:1200px)')
 
   const handleReSelection = () => {
     onreSelection(index)
@@ -55,14 +57,14 @@ const MenuListItem = ({ Recipe, index, onreSelection, onRecipeSelect }) => {
     <Box className={classes.mainbox} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
       <Box className={classes.leftbox}>
         <img src={Recipe.ImageUrl} alt={Recipe.Title} className={classes.image} />
-        <Typography variant="h4" style={{ margin: 'auto' }}>
+        <Typography variant={smallScreen ? "h6" : 'h4' } style={{ margin: 'auto' }}>
           {Recipe.Title}
         </Typography>
       </Box>
       <Box className={classes.rightbox}>
         <LoopIcon className={classes.icon} color="secondary" onClick={handleReSelection} fontSize="large" />
         <Button className={classes.icon} style={{ marginLeft: '20px' }} variant="contained" color="primary" onClick={handleRecipeSelection}>
-          Choose a Recipe
+          {smallScreen ? 'Select' : 'Choose a Recipe'}
         </Button>
       </Box>
     </Box>

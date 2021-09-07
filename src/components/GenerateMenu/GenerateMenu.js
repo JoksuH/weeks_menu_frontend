@@ -2,6 +2,7 @@ import TextField from '@material-ui/core/TextField'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import SaveIcon from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
 import { useState, useEffect } from 'react'
@@ -19,7 +20,7 @@ const button = {
   show: (index) => ({ opacity: 1, x: 0, transition: { duration: 0.2, delay: index * 0.05 } }),
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   mainbox: {
     width: '80%',
     margin: 'auto',
@@ -31,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
   textfield: {
     marginRight: '5vh',
   },
-
   button: {
     width: '40%',
     margin: '10px',
+    marginTop: '5vh'
   },
 }))
 
@@ -45,6 +46,9 @@ const GenerateMenu = () => {
   const [NumofDays, SetNumofDays] = useState(3)
   const [ManuallySelectRecipe, SetManuallySelectRecipe] = useState(false)
   const [RecipetoReplace, SetRecipetoReplace] = useState(null)
+
+  const smallScreen = useMediaQuery('(max-width:800px)')
+
 
   useEffect(() => {
     fetch('http://localhost:4000/recipes/', {
@@ -128,10 +132,10 @@ const GenerateMenu = () => {
   }
 
   return (
-    <motion.div initial="hidden" animate="visible" variants={variants} style={{ marginTop: SelectedRecipes.length > 0 ? '4vh' : '35vh' }}>
+    <motion.div initial="hidden" animate="visible" variants={variants} style={{ marginTop: SelectedRecipes.length > 0 ? '4vh' : '25vh' }}>
       {ManuallySelectRecipe === false && (
         <>
-          <Typography variant="h3">For how many days would you like to generate a menu?</Typography>
+          <Typography variant={smallScreen ? 'h5' : "h3"}>For how many days would you like to generate a menu?</Typography>
           <Box className={classes.mainbox}>
             <TextField
               className={classes.textfield}

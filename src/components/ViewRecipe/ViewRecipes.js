@@ -113,7 +113,7 @@ const ViewRecipes = ({ onSelection }) => {
           {Object.keys(SelectedRecipe).length === 0 && !onSelection &&
             Recipes.map((recipe, index) => {
               return (
-                <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
+                <Grid item key={recipe._id} xs={12} sm={6} lg={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
                   <RecipeCard data={recipe} onSelect={onRecipeSelect} onDelete={handleDeleteRequest} />
                 </Grid>
               )
@@ -121,7 +121,7 @@ const ViewRecipes = ({ onSelection }) => {
              {Object.keys(SelectedRecipe).length === 0 && onSelection &&
             Recipes.map((recipe, index) => {
               return (
-                <Grid item key={recipe._id} xs={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
+                <Grid item key={recipe._id} xs={12} sm={6} lg={4} initial="hidden" animate="show" variants={listItem} custom={index} component={motion.div}>
                   <RecipeCard data={recipe} onSelect={onRecipeSelect} />
                 </Grid>
               )
