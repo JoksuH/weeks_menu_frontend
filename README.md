@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+WeeksMenu - When you can't figure out what to cook
+============
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Weeksmenu was created to help me on those times when I couldn't figure out what to cook. After entering recipes to the database, this website allows the user to 
+choose for how many days they would like to create a menu and then the program randomly selects recipes for that many days.
 
-## Available Scripts
+The user can then remove suggestions, change them randomly as many times as they would like, or choose a specific recipe from the database.
 
-In the project directory, you can run:
+When a menu has been saved, the user can then get a shopping list which combines ingredients required from all of the recipes in the menu.
 
-### `npm start`
+Frontend was created using React, using Material-UI for design and Framer Motion for animations. Backend is running Node.js with Express, using MongoDB.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+- Ability to add new recipes to database by copying and pasting
+- Allows selecting how many days to create a menu for
+- Added recipes can also be viewed through the site
+- Menu's recipes can be reselected by selecting another random recipe or by selecting a specific recipe
+- From the menu's created, a shopping list including all the items required can be created and printed as a pdf
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## To-do
+- Mobile interface could be improved for smaller screens
+- Copy pasting recipes into database currently not super user-friendly.
+- Shopping list creation doesn't handle ingredients named similarly as the same. 
+- Bug fixes
 
-### `npm test`
+Menu Creation
+![Menu Creation](https://i.imgur.com/SgxLgQE.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Shopping List Creation
+![Shopping List Creation](https://i.imgur.com/4uVb1tV.jpg)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Live demo available at https://weeks-menu.herokuapp.com/ using example data fetched from Mongo's cloud database. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup
+Clone this repo to your desktop and run `npm install` to install all the dependencies.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Usage
+After you clone this repo to your desktop, go to its root directory and run `npm install` to install its dependencies.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once the dependencies are installed, you can run  `npm start` to start the application. You will then be able to access it at localhost:3000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+If you want to run the project from your computer, you need to run the backend at the same time as the front end using a port of your choice. The default port address is localhost:5000
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---

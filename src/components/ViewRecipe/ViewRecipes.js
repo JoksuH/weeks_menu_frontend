@@ -44,7 +44,7 @@ const ViewRecipes = ({ onSelection }) => {
   const [RecipeIDtoDelete, SetRecipeIDtoDelete] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:4000/recipes/', {
+    fetch('https://weeks-menu.herokuapp.com/recipes/', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -79,7 +79,7 @@ const ViewRecipes = ({ onSelection }) => {
 
   const handleDeleteConfirm = () => {
     if (RecipeIDtoDelete !== '') {
-      fetch(`http://localhost:4000/recipes/${RecipeIDtoDelete}`, {
+      fetch(`https://weeks-menu.herokuapp.com/recipes/${RecipeIDtoDelete}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',

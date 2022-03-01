@@ -51,7 +51,7 @@ const GenerateMenu = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:4000/recipes/', {
+    fetch('https://weeks-menu.herokuapp.com/recipes/', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -119,7 +119,7 @@ const GenerateMenu = () => {
   const handleSaveMenu = () => {
     const ObjectIdArr = []
     SelectedRecipes.forEach((recipe) => ObjectIdArr.push(recipe._id))
-    fetch('http://localhost:4000/menus/addmenu', {
+    fetch('https://weeks-menu.herokuapp.com/menus/addmenu', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

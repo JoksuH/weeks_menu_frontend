@@ -25,7 +25,7 @@ const GenerateShoppinglist = () => {
   const [SelectedMenu, SetSelectedMenu] = useState({})
 
   useEffect(() => {
-    fetch('http://localhost:4000/menus/', {
+    fetch('https://weeks-menu.herokuapp.com/menus/', {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -41,7 +41,7 @@ const GenerateShoppinglist = () => {
   const onMenuDelete = (menu_id) => {
     const OtherMenus = Menus.filter(menu => menu._id !== menu_id)
     SetMenus(OtherMenus)
-    fetch(`http://localhost:4000/menus/${menu_id}`, {
+    fetch(`https://weeks-menu.herokuapp.com/menus/${menu_id}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',

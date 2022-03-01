@@ -111,7 +111,7 @@ function AddRecipe() {
   const saveRecipe = () => {
     const ingredientsStringArr = combineIngredientstoArr(listOfamounts.current, listOfunits.current, listOfitems.current)
 
-    fetch('http://localhost:4000/recipes/addrecipe', {
+    fetch('https://weeks-menu.herokuapp.com/recipes/addrecipe', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
