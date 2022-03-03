@@ -8,7 +8,9 @@ The user can then remove suggestions, change them randomly as many times as they
 
 When a menu has been saved, the user can then get a shopping list which combines ingredients required from all of the recipes in the menu.
 
-Frontend was created using React, using Material-UI for design and Framer Motion for animations. Backend is running Node.js with Express, using MongoDB.
+This is the frontend which was created using React, using Material-UI for design and Framer Motion for animations.
+
+The backend can be found at https://github.com/JoksuH/weeks_menu_backend
 
 ## Features
 - Ability to add new recipes to database by copying and pasting
